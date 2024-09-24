@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:fragment="pagination(currentPage, pageSize, totalPages, basePath, searchParams)">
+    <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{${basePath}(size=${pageSize}, page=${currentPage - 1}, searchName=${searchParams})}">&lt;</a>
+            </li>
+
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{${basePath}(size=${pageSize}, page=${i}, searchName=${searchParams})}"
+                   th:text="${i + 1}">1</a>
+            </li>
+
+            <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{${basePath}(size=${pageSize}, page=${currentPage + 1}, searchName=${searchParams})}">&gt;</a>
+            </li>
+        </ul>
+    </nav>
+    <div th:if="${totalPages == 0}" class="alert alert-warning text-center" role="alert">
+        Không có bản ghi nào.
+    </div>
+</div>
+</body>
+</html>

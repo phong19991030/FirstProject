@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm/Sửa đồ dùng</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Chèn menu bên trái -->
+        <div th:replace="~{sidebar :: sidebar(currentPage='product-form')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
+
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h2 class="text-center mb-4" th:text="${product.id != null} ? 'Sửa đồ dùng' : 'Thêm đồ dùng'"></h2>
+
+            <form th:action="@{/products}" th:object="${product}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="form-group">
+                    <label for="code">Mã đồ dùng:</label>
+                    <input type="text" id="code" class="form-control" th:field="*{code}" placeholder="Nhập mã đồ dùng" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Tên đồ dùng:</label>
+                    <input type="text" id="name" class="form-control" th:field="*{name}" placeholder="Nhập tên đồ dùng" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Tuổi đồ dùng:</label>
+                    <input type="number" id="age" class="form-control" th:field="*{age}" placeholder="Nhập tuổi đồ dùng" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Giá đồ dùng:</label>
+                    <input type="number" id="price" class="form-control" th:field="*{price}" placeholder="Nhập giá đồ dùng" step="0.01" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="productTypeId">Loại đồ dùng:</label>
+                    <select id="productTypeId" class="form-control" th:field="*{productTypeId}" required>
+                        <option value="" disabled selected>Chọn loại đồ dùng</option>
+                        <option th:each="type : ${productTypes}" th:value="${type.id}" th:text="${type.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="imgFile">Tải ảnh lên:</label>
+                    <input type="file" id="imgFile" name="imgFile" class="form-control" accept="image/*"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Ảnh hiện tại:</label><br>
+                    <img th:if="${product.imgPath != null}" th:src="@{'/uploads/' + ${product.imgPath}}" alt="Current Image"
+                         style="width: 100px; height: 46px; object-fit: cover;"/>
+                    <span th:if="${product.imgPath == null}">Chưa có hình ảnh</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Trạng thái:</label>
+                    <select id="status" class="form-control" th:field="*{status}">
+                        <option value="1" th:selected="*{status == 1}">Hoạt động</option>
+                        <option value="0" th:selected="*{status == 0}">Không hoạt động</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <a href="/products" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
