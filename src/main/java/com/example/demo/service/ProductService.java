@@ -6,10 +6,7 @@ import com.example.demo.dto.response.ProductResponse;
 import com.example.demo.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,12 +28,19 @@ public class ProductService {
     private String uploadDir;
 
     public Page<ProductResponse> searchProducts(SearchProductRequest searchProductRequest, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        // Sắp xếp theo createTime theo thứ tự giảm dần (DESC)
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+
+        // Tạo Pageable với page, size và sort theo createTime
+        Pageable pageable = PageRequest.of(page, size, sort);
+
         Page<ProductResponse> productPage = productRepo.searchProducts(searchProductRequest, pageable);
+
         // Nếu không có bản ghi nào, trả về một Page rỗng
         if (productPage.getTotalElements() == 0) {
             return new PageImpl<>(new ArrayList<>(), pageable, 0);
         }
+
         return productPage;
     }
 
