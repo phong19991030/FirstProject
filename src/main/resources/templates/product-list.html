@@ -22,8 +22,6 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-<!--        <div th:replace="~{sidebar :: sidebar(currentPage='product-list')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>-->
-
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
                 <div class="col-12 text-center">
@@ -82,10 +80,6 @@
                                      style="width: 100px; height: 46px; object-fit: cover;"/>
                                 <span th:if="${product.imgPath == null}">Chưa có hình ảnh</span>
                             </td>
-<!--                            <td>-->
-<!--                                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm">Sửa</a>-->
-<!--                                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm">Xóa</a>-->
-<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
