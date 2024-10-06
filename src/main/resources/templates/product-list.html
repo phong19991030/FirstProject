@@ -22,7 +22,7 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="~{sidebar :: sidebar(currentPage='product-list')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
+<!--        <div th:replace="~{sidebar :: sidebar(currentPage='product-list')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>-->
 
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
@@ -31,31 +31,31 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <form th:action="@{/products}" method="get" class="form-inline justify-content-center mb-4" th:object="${searchProductRequest}">
-                        <input type="text" th:field="*{name}" class="form-control mr-2" placeholder="Tên sản phẩm"/>
-                        <input type="number" th:field="*{age}" class="form-control mr-2" placeholder="Tuổi sản phẩm"/>
-                        <input type="number" th:field="*{minPrice}" class="form-control mr-2" placeholder="Giá tối thiểu"/>
-                        <input type="number" th:field="*{maxPrice}" class="form-control mr-2" placeholder="Giá tối đa"/>
-                        <select th:field="*{productTypeId}" class="form-control mr-2">
-                            <option value="" th:selected="*{productTypeId == null}">Chọn loại sản phẩm</option>
-                            <option th:each="type : ${productTypes}" th:value="${type.id}" th:text="${type.name}"></option>
-                        </select>
-                        <select th:field="*{status}" class="form-control mr-2">
-                            <option value="" th:selected="*{status == null}">Chọn trạng thái</option>
-                            <option value="1" th:selected="*{status == 1}">Hoạt động</option>
-                            <option value="0" th:selected="*{status == 0}">Không hoạt động</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary ml-2">Tìm</button>
-                        <a href="/products" class="btn btn-secondary ml-2">Làm mới</a>
-                    </form>
-                </div>
-            </div>
+<!--            <div class="row justify-content-center">-->
+<!--                <div class="col-md-12">-->
+<!--                    <form th:action="@{/products}" method="get" class="form-inline justify-content-center mb-4" th:object="${searchProductRequest}">-->
+<!--                        <input type="text" th:field="*{name}" class="form-control mr-2" placeholder="Tên sản phẩm"/>-->
+<!--                        <input type="number" th:field="*{age}" class="form-control mr-2" placeholder="Tuổi sản phẩm"/>-->
+<!--                        <input type="number" th:field="*{minPrice}" class="form-control mr-2" placeholder="Giá tối thiểu"/>-->
+<!--                        <input type="number" th:field="*{maxPrice}" class="form-control mr-2" placeholder="Giá tối đa"/>-->
+<!--                        <select th:field="*{productTypeId}" class="form-control mr-2">-->
+<!--                            <option value="" th:selected="*{productTypeId == null}">Chọn loại sản phẩm</option>-->
+<!--                            <option th:each="type : ${productTypes}" th:value="${type.id}" th:text="${type.name}"></option>-->
+<!--                        </select>-->
+<!--                        <select th:field="*{status}" class="form-control mr-2">-->
+<!--                            <option value="" th:selected="*{status == null}">Chọn trạng thái</option>-->
+<!--                            <option value="1" th:selected="*{status == 1}">Hoạt động</option>-->
+<!--                            <option value="0" th:selected="*{status == 0}">Không hoạt động</option>-->
+<!--                        </select>-->
+<!--                        <button type="submit" class="btn btn-primary ml-2">Tìm</button>-->
+<!--                        <a href="/products" class="btn btn-secondary ml-2">Làm mới</a>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="row">
                 <div class="col-12">
-                    <a href="/products/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>
+<!--                    <a href="/products/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>-->
                     <table class="table table-hover table-bordered table-striped text-center">
                         <thead class="thead-dark">
                         <tr>
