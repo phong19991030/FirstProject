@@ -20,7 +20,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
             "(:#{#searchRequest.status} IS NULL OR p.status = :#{#searchRequest.status})",
             countQuery = "SELECT COUNT(p) FROM Product p JOIN ProductType pt ON p.productTypeId = pt.id " +
                     "WHERE (:#{#searchRequest.name} IS NULL OR p.name LIKE %:#{#searchRequest.name}%) AND " +
-                    "(:#{#searchRequest.age} IS NULL OR p.age = :#{#searchRequest.age}) AND " +
+                    "(:#{#searchRequest.age} IS NULL OR p.age <= :#{#searchRequest.age}) AND " +
                     "(:#{#searchRequest.minPrice} IS NULL OR p.price >= :#{#searchRequest.minPrice}) AND " +
                     "(:#{#searchRequest.maxPrice} IS NULL OR p.price <= :#{#searchRequest.maxPrice}) AND " +
                     "(:#{#searchRequest.productTypeId} IS NULL OR p.productTypeId = :#{#searchRequest.productTypeId}) AND " +
