@@ -2,12 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.DataSource.Product;
 import com.example.demo.DataSource.ProductType;
-import com.example.demo.dto.SearchProductRequest;
-import com.example.demo.dto.response.ProductResponse;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,24 +25,16 @@ public class ProductController {
 
     @GetMapping
     public String listProducts(Model model,
-                               @ModelAttribute SearchProductRequest searchProductRequest,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size) {
-        if (page < 0) {
-            page = 0;
-        }
-        Page<ProductResponse> productPage = productService.searchProducts(searchProductRequest, page, size);
+                               @RequestParam(defaultValue = "5") int size) {
+        // Lấy tất cả loại sản phẩm để hiển thị trên giao diện
         List<ProductType> types = productTypeService.getAllProductTypes();
         model.addAttribute("productTypes", types);
-        model.addAttribute("productPage", productPage);
-        model.addAttribute("searchProductRequest", searchProductRequest);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", productPage.getTotalPages());
-        System.out.println("Total Pages: " + productPage.getTotalPages());
-        return "product-list";
+        model.addAttribute("pageSize", size);
+
+        return "product-list"; // Chỉ trả về view mà không gọi API
     }
-
-
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
