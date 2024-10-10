@@ -39,4 +39,10 @@ public class ProductTypeService {
         return productTypeRepo.findByNameContaining(name, pageable);
     }
 
+    // Kiểm tra xem mã code đã tồn tại chưa
+    public boolean isCodeExists(String code, Long id) {
+        ProductType existingProductType = productTypeRepo.findByCode(code);
+        // Nếu mã đã tồn tại, nhưng không phải của product hiện tại (khi update)
+        return existingProductType != null && !existingProductType.getId().equals(id);
+    }
 }

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `age` int(50) DEFAULT NULL,
-  `price` float DEFAULT NULL,
+  `price` Double DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `img_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)

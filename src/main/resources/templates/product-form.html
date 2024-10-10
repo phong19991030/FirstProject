@@ -15,6 +15,10 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
         }
+        .text-danger {
+            font-size: 0.9em;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -29,24 +33,47 @@
             <form th:action="@{/products}" th:object="${product}" method="post" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}"/>
 
+                <!-- Hiển thị thông báo lỗi toàn cục cho toàn form nếu có -->
+                <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+                    <ul>
+                        <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                    </ul>
+                </div>
+
                 <div class="form-group">
                     <label for="code">Mã đồ dùng:</label>
                     <input type="text" id="code" class="form-control" th:field="*{code}" placeholder="Nhập mã đồ dùng" required/>
+                    <!-- Hiển thị lỗi cho trường 'code' nếu có -->
+                    <div th:if="${#fields.hasErrors('code')}" class="text-danger">
+                        <p th:errors="*{code}"></p>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="name">Tên đồ dùng:</label>
                     <input type="text" id="name" class="form-control" th:field="*{name}" placeholder="Nhập tên đồ dùng" required/>
+                    <!-- Hiển thị lỗi cho trường 'name' nếu có -->
+                    <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+                        <p th:errors="*{name}"></p>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="age">Tuổi đồ dùng:</label>
                     <input type="number" id="age" class="form-control" th:field="*{age}" placeholder="Nhập tuổi đồ dùng" required/>
+                    <!-- Hiển thị lỗi cho trường 'age' nếu có -->
+                    <div th:if="${#fields.hasErrors('age')}" class="text-danger">
+                        <p th:errors="*{age}"></p>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="price">Giá đồ dùng:</label>
-                    <input type="number" id="price" class="form-control" th:field="*{price}" placeholder="Nhập giá đồ dùng"  required/>
+                    <input type="number" id="price" class="form-control" th:field="*{price}" placeholder="Nhập giá đồ dùng" required/>
+                    <!-- Hiển thị lỗi cho trường 'price' nếu có -->
+                    <div th:if="${#fields.hasErrors('price')}" class="text-danger">
+                        <p th:errors="*{price}"></p>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -55,6 +82,10 @@
                         <option value="" disabled selected>Chọn loại đồ dùng</option>
                         <option th:each="type : ${productTypes}" th:value="${type.id}" th:text="${type.name}"></option>
                     </select>
+                    <!-- Hiển thị lỗi cho trường 'productTypeId' nếu có -->
+                    <div th:if="${#fields.hasErrors('productTypeId')}" class="text-danger">
+                        <p th:errors="*{productTypeId}"></p>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -75,6 +106,10 @@
                         <option value="1" th:selected="*{status == 1}">Hoạt động</option>
                         <option value="0" th:selected="*{status == 0}">Không hoạt động</option>
                     </select>
+                    <!-- Hiển thị lỗi cho trường 'status' nếu có -->
+                    <div th:if="${#fields.hasErrors('status')}" class="text-danger">
+                        <p th:errors="*{status}"></p>
+                    </div>
                 </div>
 
                 <div class="text-center">

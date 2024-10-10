@@ -12,8 +12,8 @@ import lombok.Setter;
 public class SearchProductRequest {
     private String name;
     private Integer age;
-    private Float minPrice;
-    private Float maxPrice;
+    private Double minPrice;
+    private Double maxPrice;
     private Long productTypeId;
     private Integer status;
 

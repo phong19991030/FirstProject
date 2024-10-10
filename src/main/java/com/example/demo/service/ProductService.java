@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -49,39 +50,58 @@ public class ProductService {
     }
 
     public void saveOrUpdateProduct(Product product, MultipartFile imgFile) {
-        // Kiểm tra xem sản phẩm đã tồn tại trong cơ sở dữ liệu chưa
+        // Kiểm tra nếu sản phẩm đã tồn tại
         if (product.getId() != null) {
             Product existingProduct = getProductById(product.getId());
+
             // Nếu không có ảnh mới, giữ lại ảnh cũ
             if (imgFile.isEmpty()) {
                 product.setImgPath(existingProduct.getImgPath());
             } else {
                 // Nếu có ảnh mới, lưu ảnh mới
-                try {
-                    String fileName = imgFile.getOriginalFilename();
-                    Path filePath = Paths.get(uploadDir, fileName);
-                    Files.copy(imgFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-                    product.setImgPath(fileName);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                saveImageFile(product, imgFile);
             }
         } else {
+            // Kiểm tra trùng mã sản phẩm
+            Optional<Product> productWithSameCode = productRepo.findByCode(product.getCode());
+            if (productWithSameCode.isPresent()) {
+                throw new IllegalArgumentException("Mã sản phẩm đã tồn tại. Vui lòng nhập mã khác.");
+            }
+
             // Nếu là sản phẩm mới, lưu ảnh mới (nếu có)
             if (!imgFile.isEmpty()) {
-                try {
-                    String fileName = imgFile.getOriginalFilename();
-                    Path filePath = Paths.get(uploadDir, fileName);
-                    Files.copy(imgFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-                    product.setImgPath(fileName);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                saveImageFile(product, imgFile);
             }
         }
 
         // Lưu sản phẩm
         productRepo.save(product);
+    }
+
+
+    private void saveImageFile(Product product, MultipartFile imgFile) {
+        try {
+            String fileName = imgFile.getOriginalFilename();
+            Path uploadPath = Paths.get(uploadDir);
+
+            // Kiểm tra và tạo thư mục nếu nó chưa tồn tại
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);  // Tạo thư mục
+            }
+
+            // Đường dẫn đầy đủ của file
+            Path filePath = uploadPath.resolve(fileName);
+
+            // Lưu file lên hệ thống
+            Files.copy(imgFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Đặt tên file cho product
+            product.setImgPath(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Bạn có thể thêm logic ném exception hoặc xử lý lỗi ở đây
+            throw new RuntimeException("Lưu file không thành công: " + e.getMessage());
+        }
     }
 
 

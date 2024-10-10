@@ -38,9 +38,11 @@
                         <input type="number" id="age" class="form-control mr-2" placeholder="Tuổi sản phẩm"/>
                         <input type="number" id="minPrice" class="form-control mr-2" placeholder="Giá tối thiểu"/>
                         <input type="number" id="maxPrice" class="form-control mr-2" placeholder="Giá tối đa"/>
-                        <select id="productTypeId" class="form-control mr-2">
-                            <option value="">Chọn loại sản phẩm</option>
-                            <!-- Options will be added dynamically with JavaScript -->
+                        <select id="productTypeId" name="productTypeId" class="form-control">
+                            <option value="">Tất cả loại sản phẩm</option>
+                            <option th:each="type : ${productTypes}"
+                                    th:value="${type.id}"
+                                    th:text="${type.name}"></option>
                         </select>
                         <select id="status" class="form-control mr-2">
                             <option value="">Chọn trạng thái</option>
@@ -121,8 +123,8 @@
                             <td>${product.status == 1 ? 'Hoạt động' : 'Không hoạt động'}</td>
                             <td><img src="/uploads/${product.imgPath}" alt="Product Image" style="width: 100px; height: 46px; object-fit: cover;" /></td>
                             <td>
-                                <a href="/products/edit/${product.id}" class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="/products/delete/${product.id}" class="btn btn-danger btn-sm">Xóa</a>
+                                <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Sửa</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
                             </td>
                         </tr>
                     `;
@@ -158,6 +160,40 @@
         searchProducts();
     }
 
+
+    function editProduct(id) {
+        // Hiển thị thông báo xác nhận sửa
+        const confirmEdit = confirm("Bạn có muốn sửa không?");
+        if (confirmEdit) {
+            // Điều hướng đến trang sửa với ID được truyền
+            window.location.href = `/products/edit/${id}`;
+        }
+    }
+
+    function deleteProduct(id) {
+        // Hiển thị thông báo xác nhận xóa
+        const confirmDelete = confirm("Bạn có muốn xóa không?");
+        if (confirmDelete) {
+            // Gửi yêu cầu xóa bằng fetch API hoặc XMLHttpRequest
+            fetch(`/products/delete/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Xóa thành công!");
+                        // Xóa dòng khỏi bảng hoặc làm mới lại trang
+                        window.location.reload(); // Tải lại trang sau khi xóa
+                    } else {
+                        alert("Xóa thất bại!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Đã xảy ra lỗi khi xóa:", error);
+                });
+        }
+    }
+
+
     // Gọi hàm tìm kiếm khi tải trang lần đầu
     document.addEventListener("DOMContentLoaded", function() {
         // Kiểm tra nếu tất cả các trường tìm kiếm đều trống
@@ -166,7 +202,7 @@
             !document.getElementById('minPrice').value &&
             !document.getElementById('maxPrice').value) {
             // Đặt giá trị mặc định
-            document.getElementById('age').value = 8; // Giới hạn tuổi < 8
+            document.getElementById('age').value = 18; // Giới hạn tuổi < 18
             document.getElementById('minPrice').value = 150; // Giá tối thiểu 150
             document.getElementById('maxPrice').value = 200; // Giá tối đa 200
 

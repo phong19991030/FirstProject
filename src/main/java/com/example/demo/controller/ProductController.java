@@ -2,9 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.DataSource.Product;
 import com.example.demo.DataSource.ProductType;
+import com.example.demo.dto.SearchProductRequest;
+import com.example.demo.dto.response.ProductResponse;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,17 +27,12 @@ public class ProductController {
     private ProductTypeService productTypeService;
 
     @GetMapping
-    public String listProducts(Model model,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
-        // Lấy tất cả loại sản phẩm để hiển thị trên giao diện
+    public String listProducts(Model model) {
         List<ProductType> types = productTypeService.getAllProductTypes();
         model.addAttribute("productTypes", types);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageSize", size);
-
-        return "product-list"; // Chỉ trả về view mà không gọi API
+        return "product-list";
     }
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
@@ -47,13 +45,21 @@ public class ProductController {
     @PostMapping
     public String saveProduct(@ModelAttribute Product product,
                               @RequestParam("imgFile") MultipartFile imgFile,
-                              BindingResult result) {
+                              BindingResult result, Model model) {
+        try {
+            productService.saveOrUpdateProduct(product, imgFile);
+        } catch (IllegalArgumentException e) {
+            result.rejectValue("code", ".errorproduct", e.getMessage());
+        }
+
         if (result.hasErrors()) {
+            model.addAttribute("productTypes", productTypeService.getAllProductTypes());
             return "product-form";
         }
-        productService.saveOrUpdateProduct(product, imgFile);
+
         return "redirect:/products";
     }
+
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") long id, Model model) {
