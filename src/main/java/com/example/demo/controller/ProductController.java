@@ -27,24 +27,11 @@ public class ProductController {
     private ProductTypeService productTypeService;
 
     @GetMapping
-    public String listProducts(Model model,
-                               @ModelAttribute SearchProductRequest searchProductRequest,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size) {
-        if (page < 0) {
-            page = 0;
-        }
-        Page<ProductResponse> productPage = productService.searchProducts(searchProductRequest, page, size);
+    public String listProducts(Model model) {
         List<ProductType> types = productTypeService.getAllProductTypes();
         model.addAttribute("productTypes", types);
-        model.addAttribute("productPage", productPage);
-        model.addAttribute("searchProductRequest", searchProductRequest);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", productPage.getTotalPages());
-        System.out.println("Total Pages: " + productPage.getTotalPages());
         return "product-list";
     }
-
 
 
     @GetMapping("/new")
@@ -58,13 +45,21 @@ public class ProductController {
     @PostMapping
     public String saveProduct(@ModelAttribute Product product,
                               @RequestParam("imgFile") MultipartFile imgFile,
-                              BindingResult result) {
+                              BindingResult result, Model model) {
+        try {
+            productService.saveOrUpdateProduct(product, imgFile);
+        } catch (IllegalArgumentException e) {
+            result.rejectValue("code", ".errorproduct", e.getMessage());
+        }
+
         if (result.hasErrors()) {
+            model.addAttribute("productTypes", productTypeService.getAllProductTypes());
             return "product-form";
         }
-        productService.saveOrUpdateProduct(product, imgFile);
+
         return "redirect:/products";
     }
+
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") long id, Model model) {
