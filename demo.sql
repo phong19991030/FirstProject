@@ -19,57 +19,56 @@ USE `demo`;
 
 -- Dumping structure for table demo.product
 CREATE TABLE IF NOT EXISTS `product` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_time` datetime(6) DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
-  `update_time` datetime(6) DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
-  `imgPath` varchar(255) DEFAULT NULL,
-  `product_type_id` bigint(20) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
-  `age` int(50) DEFAULT NULL,
-  `price` Double DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `img_path` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `create_time` datetime(6) DEFAULT NULL,
+    `created_by` varchar(255) DEFAULT NULL,
+    `update_time` datetime(6) DEFAULT NULL,
+    `updated_by` varchar(255) DEFAULT NULL,
+    `product_type_id` bigint(20) DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    `code` varchar(255) DEFAULT NULL,
+    `age` int(50) DEFAULT NULL,
+    `price` double DEFAULT NULL,
+    `status` int(11) DEFAULT NULL,
+    `img_path` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `code` (`code`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table demo.product: ~2 rows (approximately)
+-- Dumping data for table demo.product: ~6 rows (approximately)
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `imgPath`, `product_type_id`, `name`, `code`, `age`, `price`, `status`, `img_path`) VALUES
-	(95, NULL, NULL, NULL, NULL, NULL, 96, 'Nguyễn Chung Phong 1', '123', 18, 123123, 1, 'vdtc_eparking.png'),
-	(97, NULL, NULL, NULL, NULL, NULL, 95, 'Nguyễn Chung Phong', '1234', 18, 123123, 1, 'vdtc_eparking.png'),
-	(98, NULL, NULL, NULL, NULL, NULL, 95, 'Nguyễn Chung Phong 2', '12345', 18, 1421240, 1, 'images.jpg'),
-	(99, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(100, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(101, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(102, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(103, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(104, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(105, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png'),
-	(106, NULL, NULL, NULL, NULL, NULL, 96, 'Anh Tuan 22222', '12312', 28, 123123, 1, 'vdtc_eparking.png');
+INSERT INTO `product` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `product_type_id`, `name`, `code`, `age`, `price`, `status`, `img_path`) VALUES
+                                                                                                                                                                    (97, NULL, NULL, '2024-10-07 16:36:03.000000', NULL, 95, 'Nguyễn Chung Phong', '1234', 18, 180, 1, 'vdtc_eparking.png'),
+                                                                                                                                                                    (107, NULL, NULL, '2024-10-07 16:36:15.000000', NULL, 96, 'Nguyễn Chung Phong 1', '123', 15, 100, 1, NULL),
+                                                                                                                                                                    (109, '2024-10-07 16:45:57.000000', NULL, '2024-10-07 16:45:57.000000', NULL, 95, 'Đồ dùng 1', '11', 8, 123123, 1, NULL),
+                                                                                                                                                                    (110, '2024-10-07 17:23:00.000000', NULL, '2024-10-07 17:23:00.000000', NULL, 96, 'Nguyễn Chung Phong 1', '12345', 1231, 123, 1, NULL),
+                                                                                                                                                                    (111, '2024-10-11 08:25:42.000000', NULL, '2024-10-11 08:25:42.000000', NULL, 95, 'Nguyễn Chung Phong 1', '123456', 123, 123, 1, NULL),
+                                                                                                                                                                    (112, '2024-10-11 08:34:54.000000', NULL, '2024-10-11 08:34:54.000000', NULL, 95, 'vớ vẩn', '1234567', 123, 123123, 1, 'Untitled.png');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table demo.product_type
 CREATE TABLE IF NOT EXISTS `product_type` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_time` datetime(6) DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
-  `update_time` datetime(6) DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
-  `imgPath` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `create_time` datetime(6) DEFAULT NULL,
+    `created_by` varchar(255) DEFAULT NULL,
+    `update_time` datetime(6) DEFAULT NULL,
+    `updated_by` varchar(255) DEFAULT NULL,
+    `imgPath` varchar(255) DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    `status` int(11) DEFAULT NULL,
+    `code` varchar(10) DEFAULT NULL,
+    `description` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `code` (`code`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table demo.product_type: ~0 rows (approximately)
+-- Dumping data for table demo.product_type: ~2 rows (approximately)
 /*!40000 ALTER TABLE `product_type` DISABLE KEYS */;
-INSERT INTO `product_type` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `imgPath`, `name`, `status`) VALUES
-	(95, NULL, NULL, NULL, NULL, NULL, 'đồ dùng', 1),
-	(96, NULL, NULL, NULL, NULL, NULL, 'học tập', 1),
-	(97, NULL, NULL, NULL, NULL, NULL, 'vớ vẩn', 1);
+INSERT INTO `product_type` (`id`, `create_time`, `created_by`, `update_time`, `updated_by`, `imgPath`, `name`, `status`, `code`, `description`) VALUES
+                                                                                                                                                    (95, NULL, NULL, '2024-10-11 08:58:13.000000', NULL, NULL, 'đồ dùng', 1, '1', ''),
+                                                                                                                                                    (96, NULL, NULL, '2024-10-11 08:51:07.000000', NULL, NULL, 'học tập', 1, '12', ''),
+                                                                                                                                                    (97, NULL, NULL, '2024-10-11 08:51:11.000000', NULL, NULL, 'vớ vẩn', 1, '123', ''),
+                                                                                                                                                    (98, '2024-10-07 13:55:13.000000', NULL, '2024-10-11 08:58:19.000000', NULL, NULL, 'vớ vẩn 2', 1, '1234', '');
 /*!40000 ALTER TABLE `product_type` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
