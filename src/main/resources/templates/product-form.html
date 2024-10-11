@@ -100,8 +100,8 @@
                 <div class="form-group">
                     <label for="status">Trạng thái:</label>
                     <select id="status" class="form-control" th:field="*{status}">
-                        <option value="1" th:selected="*{status == 1}">Hoạt động</option>
-                        <option value="0" th:selected="*{status == 0}">Không hoạt động</option>
+                        <option value="1" th:selected="*{status == 1}">Còn hàng</option>
+                        <option value="0" th:selected="*{status == 0}">Hết hàng</option>
                     </select>
                     <!-- Hiển thị lỗi cho trường 'status' nếu có -->
                     <div th:if="${#fields.hasErrors('status')}" class="text-danger">
