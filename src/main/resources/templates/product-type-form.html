@@ -11,12 +11,28 @@
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h2 th:text="${productType.id != null} ? 'Sửa Loại đồ dùng' : 'Thêm Loại đồ dùng'"></h2>
 
+            <!-- Hiển thị thông báo lỗi nếu có -->
             <form th:action="@{/product-types}" th:object="${productType}" method="post">
                 <input type="hidden" th:field="*{id}"/>
 
                 <div class="form-group">
                     <label for="name">Tên loại đồ dùng:</label>
                     <input type="text" id="name" class="form-control" th:field="*{name}" placeholder="Nhập tên loại đồ dùng" required/>
+                </div>
+
+                <!-- Thêm trường code -->
+                <div class="form-group">
+                    <label for="code">Mã loại đồ dùng:</label>
+                    <input type="text" id="code" class="form-control" th:field="*{code}" placeholder="Nhập mã loại đồ dùng" required/>
+
+                    <!-- Hiển thị lỗi của trường code -->
+                    <div class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
+                </div>
+
+                <!-- Thêm trường description -->
+                <div class="form-group">
+                    <label for="description">Mô tả:</label>
+                    <textarea id="description" class="form-control" th:field="*{description}" placeholder="Nhập mô tả"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-success">Lưu</button>

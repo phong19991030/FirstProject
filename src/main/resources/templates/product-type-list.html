@@ -20,11 +20,22 @@
         table {
             margin-top: 20px;
         }
+
+        .description-cell {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
+        <!-- Chèn menu bên trái -->
+        <div th:replace="~{sidebar :: sidebar(currentPage='product-types')}"
+             class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
+
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
                 <div class="col-12 text-center">
@@ -53,12 +64,22 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
+                            <th>Mã</th>
+                            <th>Mô tả</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="type : ${productTypes.content}">
                             <td th:text="${type.id}"></td>
                             <td th:text="${type.name}"></td>
+                            <td th:text="${type.code}"></td>
+                            <td class="description-cell">
+                                <span th:if="${type.description != null && type.description.length() > 50}"
+                                      th:text="${type.description.substring(0, 50) + '...'}"></span>
+                                <span th:if="${type.description != null && type.description.length() <= 50}"
+                                      th:text="${type.description}"></span>
+                                <span th:if="${type.description == null}">N/A</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
