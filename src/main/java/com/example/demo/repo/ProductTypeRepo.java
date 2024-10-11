@@ -9,4 +9,5 @@ public interface ProductTypeRepo extends JpaRepository<ProductType, Long> {
 
     Page<ProductType> findByNameContaining(String name, Pageable pageable);
 
+    ProductType findByCode(String code);
 }

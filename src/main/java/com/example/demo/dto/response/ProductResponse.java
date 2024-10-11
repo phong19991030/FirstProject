@@ -13,8 +13,8 @@ public class ProductResponse {
     private Long id;
     private String code;
     private String name;
-    private Integer age; // Kiểu Integer
-    private Float price; // Kiểu Double
+    private Integer age;
+    private Double price;
     private String productTypeName;
     private String imgPath;
     private Integer status;

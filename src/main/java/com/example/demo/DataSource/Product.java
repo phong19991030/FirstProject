@@ -1,6 +1,7 @@
 package com.example.demo.DataSource;
 
 //import com.datasource.BaseModel;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ public class Product extends BaseModel {
     private String code;
     private String name;
     private Integer age;
-    private Float price;
+    private Double price;
     private Long productTypeId;
     private String imgPath;
 }
