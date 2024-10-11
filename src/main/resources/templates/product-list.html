@@ -22,8 +22,6 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!-- Chèn menu bên trái -->
-        <div th:replace="~{sidebar :: sidebar(currentPage='product-form')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
                 <div class="col-12 text-center">
@@ -68,7 +66,6 @@
                             <th>Loại sản phẩm</th>
                             <th>Trạng thái</th>
                             <th>Ảnh</th>
-                            <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody id="productBody">
@@ -122,10 +119,6 @@
                             <td>${product.productTypeName}</td>
                             <td>${product.status == 1 ? 'Hoạt động' : 'Không hoạt động'}</td>
                             <td><img src="/uploads/${product.imgPath}" alt="Product Image" style="width: 100px; height: 46px; object-fit: cover;" /></td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Sửa</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
-                            </td>
                         </tr>
                     `;
                     productBody.innerHTML += row;
@@ -196,19 +189,9 @@
 
     // Gọi hàm tìm kiếm khi tải trang lần đầu
     document.addEventListener("DOMContentLoaded", function() {
-        // Kiểm tra nếu tất cả các trường tìm kiếm đều trống
-        if (!document.getElementById('name').value &&
-            !document.getElementById('age').value &&
-            !document.getElementById('minPrice').value &&
-            !document.getElementById('maxPrice').value) {
-            // Đặt giá trị mặc định
-            document.getElementById('age').value = 18; // Giới hạn tuổi < 18
-            document.getElementById('minPrice').value = 150; // Giá tối thiểu 150
-            document.getElementById('maxPrice').value = 200; // Giá tối đa 200
-
             // Gọi API để tìm kiếm sản phẩm với giá trị mặc định
             searchProducts();
-        }
+
     });
 </script>
 
