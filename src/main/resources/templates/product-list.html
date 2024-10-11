@@ -55,7 +55,6 @@
 
             <div class="row">
                 <div class="col-12">
-                    <a href="/products/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>
                     <table class="table table-hover table-bordered table-striped text-center" id="productTable">
                         <thead class="thead-dark">
                         <tr>
@@ -66,6 +65,7 @@
                             <th>Loại sản phẩm</th>
                             <th>Trạng thái</th>
                             <th>Ảnh</th>
+                            <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody id="productBody">
@@ -119,6 +119,10 @@
                             <td>${product.productTypeName}</td>
                             <td>${product.status == 1 ? 'Hoạt động' : 'Không hoạt động'}</td>
                             <td><img src="/uploads/${product.imgPath}" alt="Product Image" style="width: 100px; height: 46px; object-fit: cover;" /></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Sửa</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
+                            </td>
                         </tr>
                     `;
                     productBody.innerHTML += row;
@@ -152,6 +156,7 @@
         // Gọi hàm tìm kiếm sản phẩm với tất cả giá trị null
         searchProducts();
     }
+
 
     function editProduct(id) {
         // Hiển thị thông báo xác nhận sửa
