@@ -20,6 +20,13 @@
         table {
             margin-top: 20px;
         }
+
+        .description-cell {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
@@ -57,6 +64,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
+                            <th>Mã</th>
+                            <th>Mô tả</th>
                             <th>Hành Động</th>
                         </tr>
                         </thead>
@@ -64,9 +73,19 @@
                         <tr th:each="type : ${productTypes.content}">
                             <td th:text="${type.id}"></td>
                             <td th:text="${type.name}"></td>
+                            <td th:text="${type.code}"></td>
+                            <td class="description-cell">
+                                <span th:if="${type.description != null && type.description.length() > 50}"
+                                      th:text="${type.description.substring(0, 50) + '...'}"></span>
+                                <span th:if="${type.description != null && type.description.length() <= 50}"
+                                      th:text="${type.description}"></span>
+                                <span th:if="${type.description == null}">N/A</span>
+                            </td>
                             <td>
-                                <a th:href="@{/product-types/edit/{id}(id=${type.id})}" class="btn btn-warning btn-sm">Sửa</a>
-                                <a th:href="@{/product-types/delete/{id}(id=${type.id})}" class="btn btn-danger btn-sm">Xóa</a>
+                                <a th:href="@{/product-types/edit/{id}(id=${type.id})}" class="btn btn-warning btn-sm"
+                                   onclick="return confirm('Bạn có muốn sửa không?')">Sửa</a>
+                                <a th:href="@{/product-types/delete/{id}(id=${type.id})}" class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
                             </td>
                         </tr>
                         </tbody>
