@@ -8,12 +8,14 @@
             background-color: #f8f9fa;
             padding-top: 20px;
         }
+
         .container {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+
         table {
             margin-top: 20px;
         }
@@ -23,7 +25,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Chèn menu bên trái -->
-        <div th:replace="~{sidebar :: sidebar(currentPage='product-form')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
+        <div th:replace="~{sidebar :: sidebar(currentPage='product-form')}"
+             class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
                 <div class="col-12 text-center">
@@ -46,8 +49,8 @@
                         </select>
                         <select id="status" class="form-control mr-2">
                             <option value="">Chọn trạng thái</option>
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Không hoạt động</option>
+                            <option value="1">Còn hàng</option>
+                            <option value="0">Hết hàng</option>
                         </select>
                         <button type="button" class="btn btn-primary ml-2" onclick="searchProducts()">Tìm</button>
                         <button type="button" class="btn btn-secondary ml-2" onclick="resetFilters()">Làm mới</button>
@@ -120,7 +123,7 @@
                             <td>${product.age}</td>
                             <td>${product.price}</td>
                             <td>${product.productTypeName}</td>
-                            <td>${product.status == 1 ? 'Hoạt động' : 'Không hoạt động'}</td>
+                            <td>${product.status == 1 ? 'Còn hàng' : 'Hết hàng'}</td>
                             <td><img src="/uploads/${product.imgPath}" alt="Product Image" style="width: 100px; height: 46px; object-fit: cover;" /></td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Sửa</button>
@@ -195,7 +198,7 @@
 
 
     // Gọi hàm tìm kiếm khi tải trang lần đầu
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Kiểm tra nếu tất cả các trường tìm kiếm đều trống
         if (!document.getElementById('name').value &&
             !document.getElementById('age').value &&
