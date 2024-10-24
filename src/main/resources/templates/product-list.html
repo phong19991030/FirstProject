@@ -31,33 +31,33 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <form id="searchForm" class="form-inline justify-content-center mb-4">
-                        <input type="text" id="name" class="form-control mr-2" placeholder="Tên sản phẩm"/>
-                        <input type="number" id="age" class="form-control mr-2" placeholder="Tuổi sản phẩm"/>
-                        <input type="number" id="minPrice" class="form-control mr-2" placeholder="Giá tối thiểu"/>
-                        <input type="number" id="maxPrice" class="form-control mr-2" placeholder="Giá tối đa"/>
-                        <select id="productTypeId" name="productTypeId" class="form-control">
-                            <option value="">Tất cả loại sản phẩm</option>
-                            <option th:each="type : ${productTypes}"
-                                    th:value="${type.id}"
-                                    th:text="${type.name}"></option>
-                        </select>
-                        <select id="status" class="form-control mr-2">
-                            <option value="">Chọn trạng thái</option>
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Không hoạt động</option>
-                        </select>
-                        <button type="button" class="btn btn-primary ml-2" onclick="searchProducts()">Tìm</button>
-                        <button type="button" class="btn btn-secondary ml-2" onclick="resetFilters()">Làm mới</button>
-                    </form>
-                </div>
-            </div>
+<!--            <div class="row justify-content-center">-->
+<!--                <div class="col-md-12">-->
+<!--                    <form id="searchForm" class="form-inline justify-content-center mb-4">-->
+<!--                        <input type="text" id="name" class="form-control mr-2" placeholder="Tên sản phẩm"/>-->
+<!--                        <input type="number" id="age" class="form-control mr-2" placeholder="Tuổi sản phẩm"/>-->
+<!--                        <input type="number" id="minPrice" class="form-control mr-2" placeholder="Giá tối thiểu"/>-->
+<!--                        <input type="number" id="maxPrice" class="form-control mr-2" placeholder="Giá tối đa"/>-->
+<!--                        <select id="productTypeId" name="productTypeId" class="form-control">-->
+<!--                            <option value="">Tất cả loại sản phẩm</option>-->
+<!--                            <option th:each="type : ${productTypes}"-->
+<!--                                    th:value="${type.id}"-->
+<!--                                    th:text="${type.name}"></option>-->
+<!--                        </select>-->
+<!--                        <select id="status" class="form-control mr-2">-->
+<!--                            <option value="">Chọn trạng thái</option>-->
+<!--                            <option value="1">Hoạt động</option>-->
+<!--                            <option value="0">Không hoạt động</option>-->
+<!--                        </select>-->
+<!--                        <button type="button" class="btn btn-primary ml-2" onclick="searchProducts()">Tìm</button>-->
+<!--                        <button type="button" class="btn btn-secondary ml-2" onclick="resetFilters()">Làm mới</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="row">
                 <div class="col-12">
-                    <a href="/products/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>
+<!--                    <a href="/products/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>-->
                     <table class="table table-hover table-bordered table-striped text-center" id="productTable">
                         <thead class="thead-dark">
                         <tr>
@@ -68,7 +68,6 @@
                             <th>Loại sản phẩm</th>
                             <th>Trạng thái</th>
                             <th>Ảnh</th>
-                            <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody id="productBody">
@@ -94,14 +93,15 @@
 
     // Hàm tìm kiếm sản phẩm
     function searchProducts(page = 0) {
-        const name = document.getElementById('name').value;
-        const age = document.getElementById('age').value;
-        const minPrice = document.getElementById('minPrice').value;
-        const maxPrice = document.getElementById('maxPrice').value;
-        const productTypeId = document.getElementById('productTypeId').value;
-        const status = document.getElementById('status').value;
+        // const name = document.getElementById('name').value;
+        // const age = document.getElementById('age').value;
+        // const minPrice = document.getElementById('minPrice').value;
+        // const maxPrice = document.getElementById('maxPrice').value;
+        // const productTypeId = document.getElementById('productTypeId').value;
+        // const status = document.getElementById('status').value;
 
-        const url = `/api/products?name=${name}&age=${age}&minPrice=${minPrice}&maxPrice=${maxPrice}&productTypeId=${productTypeId}&status=${status}&page=${page}&size=${pageSize}`;
+        // const url = `/api/products?name=&age=18&minPrice=150&maxPrice=${maxPrice}&productTypeId=${productTypeId}&status=${status}&page=${page}&size=${pageSize}`;
+        const url = `/api/products?name=&age=18&minPrice=150&maxPrice=200&productTypeId=&status=&page=0&size=5`
 
         fetch(url)
             .then(response => response.json())
@@ -122,10 +122,6 @@
                             <td>${product.productTypeName}</td>
                             <td>${product.status == 1 ? 'Hoạt động' : 'Không hoạt động'}</td>
                             <td><img src="/uploads/${product.imgPath}" alt="Product Image" style="width: 100px; height: 46px; object-fit: cover;" /></td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Sửa</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
-                            </td>
                         </tr>
                     `;
                     productBody.innerHTML += row;
@@ -197,18 +193,18 @@
     // Gọi hàm tìm kiếm khi tải trang lần đầu
     document.addEventListener("DOMContentLoaded", function() {
         // Kiểm tra nếu tất cả các trường tìm kiếm đều trống
-        if (!document.getElementById('name').value &&
-            !document.getElementById('age').value &&
-            !document.getElementById('minPrice').value &&
-            !document.getElementById('maxPrice').value) {
+        // if (!document.getElementById('name').value &&
+        //     !document.getElementById('age').value &&
+        //     !document.getElementById('minPrice').value &&
+        //     !document.getElementById('maxPrice').value) {
             // Đặt giá trị mặc định
-            document.getElementById('age').value = 18; // Giới hạn tuổi < 18
-            document.getElementById('minPrice').value = 150; // Giá tối thiểu 150
-            document.getElementById('maxPrice').value = 200; // Giá tối đa 200
+            // document.getElementById('age').value = 18; // Giới hạn tuổi < 18
+            // document.getElementById('minPrice').value = 150; // Giá tối thiểu 150
+            // document.getElementById('maxPrice').value = 200; // Giá tối đa 200
 
             // Gọi API để tìm kiếm sản phẩm với giá trị mặc định
             searchProducts();
-        }
+        // }
     });
 </script>
 
