@@ -33,7 +33,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Chèn menu bên trái -->
-        <div th:replace="~{sidebar :: sidebar(currentPage='product-types')}"
+        <div th:replace="~{sidebar :: sidebar(currentPage='stationery-types')}"
              class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
 
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -46,18 +46,18 @@
 <!--            <div class="row justify-content-center">-->
 <!--                <div class="col-md-8">-->
 <!--                    &lt;!&ndash; Form tìm kiếm &ndash;&gt;-->
-<!--                    <form action="/product-types" method="get" class="form-inline justify-content-center mb-4">-->
+<!--                    <form action="/stationery-types" method="get" class="form-inline justify-content-center mb-4">-->
 <!--                        <input type="text" name="searchName" placeholder="Tìm kiếm theo tên"-->
 <!--                               th:value="${searchName}" class="form-control mr-2" style="width: 60%;">-->
 <!--                        <button type="submit" class="btn btn-primary mr-2">Tìm kiếm</button>-->
-<!--                        <a href="/product-types" class="btn btn-secondary">Làm mới</a>-->
+<!--                        <a href="/stationery-types" class="btn btn-secondary">Làm mới</a>-->
 <!--                    </form>-->
 <!--                </div>-->
 <!--            </div>-->
 
             <div class="row">
                 <div class="col-12">
-<!--                    <a href="/product-types/new" class="btn btn-success mb-3">Thêm Loại đồ dùng</a>-->
+<!--                    <a href="/stationery-types/new" class="btn btn-success mb-3">Thêm Loại đồ dùng</a>-->
                     <!-- Bảng danh sách loại đồ dùng -->
                     <table class="table table-hover table-bordered table-striped text-center">
                         <thead class="thead-dark">
@@ -82,9 +82,9 @@
                                 <span th:if="${type.description == null}">N/A</span>
                             </td>
 <!--                            <td>-->
-<!--                                <a th:href="@{/product-types/edit/{id}(id=${type.id})}" class="btn btn-warning btn-sm"-->
+<!--                                <a th:href="@{/stationery-types/edit/{id}(id=${type.id})}" class="btn btn-warning btn-sm"-->
 <!--                                   onclick="return confirm('Bạn có muốn sửa không?')">Sửa</a>-->
-<!--                                <a th:href="@{/product-types/delete/{id}(id=${type.id})}" class="btn btn-danger btn-sm"-->
+<!--                                <a th:href="@{/stationery-types/delete/{id}(id=${type.id})}" class="btn btn-danger btn-sm"-->
 <!--                                   onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>-->
 <!--                            </td>-->
                         </tr>
@@ -94,7 +94,7 @@
             </div>
 
             <!-- Phân trang -->
-            <div th:replace="pagination :: pagination(currentPage=${currentPage}, pageSize=${productTypes.size}, totalPages=${totalPages}, basePath='/product-types', searchParams=${searchName})"></div>
+            <div th:replace="pagination :: pagination(currentPage=${currentPage}, pageSize=${productTypes.size}, totalPages=${totalPages}, basePath='/stationery-types', searchParams=${searchName})"></div>
         </div>
     </div>
 </div>

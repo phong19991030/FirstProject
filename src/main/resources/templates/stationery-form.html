@@ -30,7 +30,7 @@
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h2 class="text-center mb-4" th:text="${product.id != null} ? 'Sửa đồ dùng' : 'Thêm đồ dùng'"></h2>
 
-            <form th:action="@{/products}" th:object="${product}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/stationerys}" th:object="${product}" method="post" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}"/>
 
                 <!-- Hiển thị thông báo lỗi toàn cục cho toàn form nếu có -->
@@ -114,7 +114,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Lưu</button>
-                    <a href="/products" class="btn btn-secondary">Quay lại</a>
+                    <a href="/stationerys" class="btn btn-secondary">Quay lại</a>
                 </div>
             </form>
         </div>

@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.DataSource.Stationery;
-import com.example.demo.dto.SearchProductRequest;
-import com.example.demo.dto.response.ProductResponse;
-import com.example.demo.repo.ProductRepo;
+import com.example.demo.dto.SearchStationeryRequest;
+import com.example.demo.dto.response.StationeryResponse;
+import com.example.demo.repo.StationeryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
@@ -16,26 +16,25 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class StationeryService {
 
     @Autowired
-    private ProductRepo stationeryRepository;
+    private StationeryRepo stationeryRepository;
 
     @Value("${upload.dir}")
     private String uploadDir;
 
-    public Page<ProductResponse> searchProducts(SearchProductRequest searchProductRequest, int page, int size) {
+    public Page<StationeryResponse> searchProducts(SearchStationeryRequest searchStationeryRequest, int page, int size) {
         // Sắp xếp theo createTime theo thứ tự giảm dần (DESC)
         Sort sort = Sort.by(Sort.Direction.DESC, "price");
 
         // Tạo Pageable với page, size và sort theo createTime
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<ProductResponse> productPage = stationeryRepository.searchProducts(searchProductRequest, pageable);
+        Page<StationeryResponse> productPage = stationeryRepository.searchProducts(searchStationeryRequest, pageable);
 
         // Nếu không có bản ghi nào, trả về một Page rỗng
         if (productPage.getTotalElements() == 0) {

@@ -8,13 +8,13 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Chèn menu bên trái -->
-        <div th:replace="~{sidebar :: sidebar(currentPage='product-types')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
+        <div th:replace="~{sidebar :: sidebar(currentPage='stationery-types')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
 
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <h2 th:text="${productType.id != null} ? 'Sửa Loại đồ dùng' : 'Thêm Loại đồ dùng'"></h2>
+            <h2 th:text="${stationeryType.id != null} ? 'Sửa Loại đồ dùng' : 'Thêm Loại đồ dùng'"></h2>
 
             <!-- Hiển thị thông báo lỗi nếu có -->
-            <form th:action="@{/product-types}" th:object="${productType}" method="post">
+            <form th:action="@{/stationery-types}" th:object="${stationeryType}" method="post">
                 <input type="hidden" th:field="*{id}"/>
 
                 <div class="form-group">
@@ -38,7 +38,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Lưu</button>
-                <a href="/product-types" class="btn btn-secondary">Quay lại</a>
+                <a href="/stationery-types" class="btn btn-secondary">Quay lại</a>
             </form>
         </div>
     </div>

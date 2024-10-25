@@ -5,18 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Lob;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductResponse {
+public class StationeryResponse {
     private Long id;
     private String code;
     private String name;
-    private Long typeId;
+    private String typeName;
     private int minAge;
     private int maxAge;
     private byte[] image;

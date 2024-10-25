@@ -23,7 +23,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Chèn menu bên trái -->
-<!--        <div th:replace="~{sidebar :: sidebar(currentPage='product-form')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>-->
+        <div th:replace="~{sidebar :: sidebar(currentPage='product-form')}" class="col-md-3 col-lg-2 d-md-block bg-light sidebar"></div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
                 <div class="col-12 text-center">
@@ -33,7 +33,7 @@
 
             <div class="row">
                 <div class="col-12">
-<!--                    <a href="/products/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>-->
+<!--                    <a href="/stationerys/new" class="btn btn-success mb-3">Thêm Đồ dùng mới</a>-->
                     <table class="table table-hover table-bordered table-striped text-center" id="productTable">
                         <thead class="thead-dark">
                         <tr>
@@ -65,15 +65,16 @@
 
 <script>
     let currentPage = 0; // Biến để theo dõi trang hiện tại
-    const pageSize = 5;  // Kích thước mỗi trang
+    const pageSize = 10;  // Kích thước mỗi trang
 
     // Hàm tìm kiếm sản phẩm
     function searchProducts(page = 0) {
-        const url = `/api/products?name=&age=8&minPrice=150&maxPrice=200&productTypeId=&status=&page=0&size=5`
+        const url = `/api/stationerys?name=&age=8&minPrice=150&maxPrice=200&productTypeId=&status=&page=0&size=5`
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                debugger
                 const productBody = document.getElementById('productBody');
                 const pagination = document.getElementById('pagination');
                 productBody.innerHTML = ''; // Clear previous rows
@@ -88,8 +89,8 @@
                             <td>${product.minAge}</td>
                             <td>${product.maxAge}</td>
                             <td>${product.price}</td>
-                            <td>${product.typeId}</td>
-                            <td><img src="http://localhost:8089/api/products/${product.id}/image" alt="Stationery Image" style="max-width: 150px; height: auto;" /></td>
+                            <td>${product.typeName}</td>
+                            <td><img src="http://localhost:8089/api/stationerys/${product.id}/image" alt="Stationery Image" style="max-width: 150px; height: auto;" /></td>
                         </tr>
                     `;
                     productBody.innerHTML += row;

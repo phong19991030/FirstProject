@@ -9,11 +9,11 @@
     <ul class="nav flex-column">
         <li class="nav-item">
             <span th:if="${currentPage == 'product-list'}" class="nav-link" style="font-weight: bold; color: blue;">Đồ dùng</span>
-            <a th:if="${currentPage != 'product-list'}" th:href="@{/products}" class="nav-link">Đồ dùng</a>
+            <a th:if="${currentPage != 'product-list'}" th:href="@{/stationerys}" class="nav-link">Đồ dùng</a>
         </li>
         <li class="nav-item">
-            <span th:if="${currentPage == 'product-types'}" class="nav-link" style="font-weight: bold; color: blue;">Loại đồ dùng</span>
-            <a th:if="${currentPage != 'product-types'}" th:href="@{/product-types}" class="nav-link">Loại đồ dùng</a>
+            <span th:if="${currentPage == 'stationery-types'}" class="nav-link" style="font-weight: bold; color: blue;">Loại đồ dùng</span>
+            <a th:if="${currentPage != 'stationery-types'}" th:href="@{/stationery-types}" class="nav-link">Loại đồ dùng</a>
         </li>
     </ul>
 </div>

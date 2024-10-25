@@ -9,12 +9,12 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchProductRequest {
+public class SearchStationeryRequest {
     private String name;
     private Integer age;
     private Integer minPrice;
     private Integer maxPrice;
-    private int typeId;
+    private String typeId;
     private Integer status;
 
 }

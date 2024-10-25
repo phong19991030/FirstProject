@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.SearchProductRequest;
-import com.example.demo.dto.response.ProductResponse;
-import com.example.demo.service.ProductService;
+import com.example.demo.dto.SearchStationeryRequest;
+import com.example.demo.dto.response.StationeryResponse;
+import com.example.demo.service.StationeryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -12,17 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/stationerys")
 public class StationeryApiController {
 
     @Autowired
-    private ProductService stationeryService;
+    private StationeryService stationeryService;
 
     @GetMapping
-    public Page<ProductResponse> getProducts(SearchProductRequest searchProductRequest,
-                                             @RequestParam(defaultValue = "0") int page,
-                                             @RequestParam(defaultValue = "10") int size) {
-        return stationeryService.searchProducts(searchProductRequest, page, size);
+    public Page<StationeryResponse> getProducts(SearchStationeryRequest searchStationeryRequest,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
+        return stationeryService.searchProducts(searchStationeryRequest, page, size);
     }
 
     @GetMapping("{id}/image")
