@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.DataSource.Product;
+import com.example.demo.DataSource.Stationery;
 import com.example.demo.dto.SearchProductRequest;
 import com.example.demo.dto.response.ProductResponse;
 import com.example.demo.repo.ProductRepo;
@@ -23,19 +23,19 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-    private ProductRepo productRepo;
+    private ProductRepo stationeryRepository;
 
     @Value("${upload.dir}")
     private String uploadDir;
 
     public Page<ProductResponse> searchProducts(SearchProductRequest searchProductRequest, int page, int size) {
         // Sắp xếp theo createTime theo thứ tự giảm dần (DESC)
-        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "price");
 
         // Tạo Pageable với page, size và sort theo createTime
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<ProductResponse> productPage = productRepo.searchProducts(searchProductRequest, pageable);
+        Page<ProductResponse> productPage = stationeryRepository.searchProducts(searchProductRequest, pageable);
 
         // Nếu không có bản ghi nào, trả về một Page rỗng
         if (productPage.getTotalElements() == 0) {
@@ -45,25 +45,25 @@ public class ProductService {
         return productPage;
     }
 
-    public Product getProductById(Long id) {
-        return productRepo.findById(id).orElse(null);
+    public Stationery getProductById(Long id) {
+        return stationeryRepository.findById(id).orElse(null);
     }
 
-    public void saveOrUpdateProduct(Product product, MultipartFile imgFile) {
+    public void saveOrUpdateProduct(Stationery product, MultipartFile imgFile) {
         // Kiểm tra nếu sản phẩm đã tồn tại
         if (product.getId() != null) {
-            Product existingProduct = getProductById(product.getId());
+            Stationery existingProduct = getProductById(product.getId());
 
             // Nếu không có ảnh mới, giữ lại ảnh cũ
             if (imgFile.isEmpty()) {
-                product.setImgPath(existingProduct.getImgPath());
+//                product.setImgPath(existingProduct.getImgPath());
             } else {
                 // Nếu có ảnh mới, lưu ảnh mới
                 saveImageFile(product, imgFile);
             }
         } else {
             // Kiểm tra trùng mã sản phẩm
-            Optional<Product> productWithSameCode = productRepo.findByCode(product.getCode());
+            Optional<Stationery> productWithSameCode = stationeryRepository.findByCode(product.getCode());
             if (productWithSameCode.isPresent()) {
                 throw new IllegalArgumentException("Mã sản phẩm đã tồn tại. Vui lòng nhập mã khác.");
             }
@@ -75,11 +75,11 @@ public class ProductService {
         }
 
         // Lưu sản phẩm
-        productRepo.save(product);
+        stationeryRepository.save(product);
     }
 
 
-    private void saveImageFile(Product product, MultipartFile imgFile) {
+    private void saveImageFile(Stationery product, MultipartFile imgFile) {
         try {
             String fileName = imgFile.getOriginalFilename();
             Path uploadPath = Paths.get(uploadDir);
@@ -96,7 +96,7 @@ public class ProductService {
             Files.copy(imgFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             // Đặt tên file cho product
-            product.setImgPath(fileName);
+//            product.setImgPath(fileName);
         } catch (IOException e) {
             e.printStackTrace();
             // Bạn có thể thêm logic ném exception hoặc xử lý lỗi ở đây
@@ -106,7 +106,12 @@ public class ProductService {
 
 
     public void deleteProduct(Long id) {
-        productRepo.deleteById(id);
+        stationeryRepository.deleteById(id);
+    }
+
+    public byte[] getImageById(Long id) {
+        Optional<Stationery> stationery = stationeryRepository.findById(id);
+        return stationery.map(Stationery::getImage).orElse(null);
     }
 }
 

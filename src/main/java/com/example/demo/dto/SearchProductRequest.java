@@ -12,9 +12,9 @@ import lombok.Setter;
 public class SearchProductRequest {
     private String name;
     private Integer age;
-    private Double minPrice;
-    private Double maxPrice;
-    private Long productTypeId;
+    private Integer minPrice;
+    private Integer maxPrice;
+    private int typeId;
     private Integer status;
 
 }
